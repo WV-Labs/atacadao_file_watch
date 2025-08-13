@@ -1,0 +1,52 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /api-file-monitor
+
+spring:
+  application:
+    name: file-monitor
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  h2:
+    console:
+      enabled: true
+
+logging:
+  level:
+    com.example: DEBUG
+    org.springframework.web: INFO
+    com.mercado.filemonitor.service.FileParserService: INFO
+    com.mercado.filemonitor.util.FileValidator: INFO
+
+# Configura��es customizadas
+file:
+  monitor:
+    path_raiz: C:/Users/Junior/Documents/_Cliente_e_Consultorias/atacadao
+    input-directorio: ${file.monitor.path_raiz}
+    output-directorio: ${file.monitor.path_raiz}/output
+    output-directorio-jsonprodutos: ${file.monitor.path_raiz}/output/jsonprodutos
+    polling-interval: 5000  # milissegundos
+    file-pattern: "txitens.txt"
+
+app-mercado:
+  remote:
+    host: http://localhost
+    port: 8080
+    path: /api-mercado
+    endpoint-export: /api/export
+    produtos-endpoint: /import-txt
